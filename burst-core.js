@@ -42,7 +42,7 @@
     inOutBounce   : function(x,t,b,c,d){ if(t < d/2) return ease['easeInBounce'](x, t*2, 0, c, d) * .5 + b; return ease['easeOutBounce'](x, t*2-d, 0, c, d) * .5 + c*.5 + b; }
   };
 
-  var engine = function engine(object,frame,prop,curKey,nextKey){
+  var engine = function engine(frame,prop,curKey,nextKey){
     if( frame >= curKey.frame && frame<nextKey.frame ){
       var e=curKey.easing;
       var x=0;
@@ -89,10 +89,24 @@
     },
     
     frame: function(){
-      for( var i in this.playing ){
-        console.log( i );
+      for( var i in this.loaded ){        
+        
+        // Go forward a frame
+        //this.loaded[i].frame += this.loaded[i].speed;
+        
+        for( var j in this.loaded[i].shapes ){
+          for( var k in this.loaded[i].shapes ){
+            for( var l in this.loaded[i].shapes[j].tracks ){
+              //frame,prop,curKey,nextKey
+              console.log( this.loaded[i].frame );
+              console.log( this.loaded[i].shapes[j].name );
+              
+              //engine(this.loaded[i].frame
+            }
+          }
+        }
       }
-    }
+    },
                   
   };  
   
@@ -169,6 +183,21 @@
                     }else{
                       return this.keys[frame] = new Key(frame,value,easing,this);
                     }
+                    // Sort keys
+                    var keyIndex=[];
+                    for(var i=0;i<this.keys.length;i++){
+                      keyIndex[i]=this.keys[i].frame;
+                    }
+                    keyIndex.sort(this.sortNumber);
+                    var keyStack=[];
+                    for(var i=0;i<this.keys.length;i++){
+                      for(var j=0;j<this.keys.length;j++){
+                        if(keyIndex[i]==this.keys[j].frame){
+                          keyStack[i]=this.keys[j];
+                        }
+                      }
+                    }
+                    this.keys=keyStack;
                   },
     timeline    : function(name,start,end,speed,loop){ return this.parent.parent.parent.timeline.apply(this.parent.parent.parent,[name,start,end,speed,loop,this.parent]); }, 
     shape       : function(name,objectRef){ return this.parent.parent.shape.apply(this.parent.parent,[name,objectRef,this.parent]); },
