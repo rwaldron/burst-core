@@ -100,7 +100,9 @@
               //frame,prop,curKey,nextKey
               console.log( this.loaded[i].frame );
               console.log( this.loaded[i].shapes[j].name );
+              console.log( this.key[] );          
               
+                
               //engine(this.loaded[i].frame
             }
           }
