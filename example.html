@@ -1,0 +1,24 @@
+<script src="burst-core.js"></script>
+<script src="burst-debug.js"></script>
+<script>    
+var someobj = {x:0,y:0};
+
+//console.log(
+a=
+  burst
+    .timeline('somename',0,100,1,true)
+      .shape('obxy',someobj)
+        .track('x')
+          .key(0,0,'linear')
+          .key(1000,50)
+
+//);
+
+burst.load('somename');
+burst.frame();
+
+
+
+
+
+</script>
