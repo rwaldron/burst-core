@@ -1,24 +1,55 @@
 <script src="burst-core.js"></script>
-<script src="burst-debug.js"></script>
-<script>    
-var someobj = {x:0,y:0};
-
-//console.log(
-a=
+<script>
+function loaded(){
+ 
+  var redBox = document.getElementById('redBox');
+  var greenBox = document.getElementById('greenBox');
+  
+  // Invoke Burst Controller
   burst
-    .timeline('somename',0,100,1,true)
-      .shape('obxy',someobj)
-        .track('x')
-          .key(0,0,'linear')
-          .key(1000,50)
+    // Create a Timeline (name, start-frame, frames-length, speed-ratio, looping, callback)
+    .timeline('ArbitraryTimelineName',0,100,1,true,function(){ alert('All done!'); } ) // Callbacks do not fire on looping timelines
+      // Create a Shape Object (name, object-reference)
+      .shape('ArbitrarilyNamedRedBox',redBox.style)
+        // Create a Track (property-reference)
+        .track('left')            
+          // Create a Key (frame, value-of-referenced-property, easing-type)
+          .key(0,0,'inOutBounce')
+          // Create another Key: Keys can be created in any order
+          .key(100,50)
+       // Create a second Shape with it's object reference
+      .shape('ArbitrarilyNamedGreenBox',greenBox.style)
+        // Create a Track (property-reference)
+        .track('top')            
+          // Create a Key (frame, value-of-referenced-property, easing-type)
+          .key(0,0,'inOutBounce')
+          // Create another Key: Keys can be created in any order
+          .key(50,50)
+        .track('width')
+          // Create a Key (frame, value-of-referenced-property, easing-type)
+          .key(0,50)
+          .key(50,50)
+          .key(75,200)
+          .key(100,50)
+  // Close the timeline declaration
+  ;
 
-//);
+  // Load a timeline into the Burst Player
+  burst.load('ArbitraryTimelineName');
+  
+  // Unload a timeline from the Burst Player
+  //burst.unload('ArbitraryTimelineName');
+  
+  // Begin playback of all loaded timelines
+  burst.play();  
+  
+  // Stop playback of all loaded timelines
+  // burst.stop();  
 
-burst.load('somename');
-burst.frame();
+}
 
-
-
-
-
+addEventListener('DOMContentLoaded', function(){ loaded(); }, false);
 </script>
+
+<div id="redBox" style="background:red;position:absolute;left:0;top:0;width:50px;height:50px"></div>
+<div id="greenBox" style="background:limegreen;position:absolute;left:50;top:0;width:50px;height:50px"></div>
