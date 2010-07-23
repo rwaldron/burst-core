@@ -1,4 +1,3 @@
-
 /*
  
   BURST-CORE - by f1lt3r @ bocoup
@@ -266,6 +265,6 @@
     key         : function(frame,value,easing){ return this.parent.key.apply(this.parent,[frame,value,easing,this.parent]); }
   };
  
-  this.burst = new Burst();
+  window.burst = new Burst();
   
 })();
