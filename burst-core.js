@@ -62,20 +62,26 @@
   };
      
   // BURST //
-  var Burst = function(){ this.name = 'Burst Instance ' + new Date() };
+  var Burst = function()  { 
+    this.name = 'Burst Instance ' + new Date();
+  };
      
   Burst.prototype = {
     fps           : 30,
     timelines     : {},
     loaded        : {},
     timelineCount : 0,
-    timeline      : function(name,start,end,speed,loop,callback){
-                      if(typeof name == 'String'){
+    timeline      : function(name,start,end,speed,loop,callback)  {
+                      //  Checks to see if a timeline of this name already exists
+                      //  if it does, then immediately return it.
+                      if ( this.timelines[name] ) {
                         return this.timelines[name];
-                      }else{
-                        this.timelineCount ++;
-                        return this.timelines[name] = new Timeline(name,start,end,speed,loop,callback,this);
                       }
+                      //  If we are creating a new timeline:
+                      //  increment the timeline count
+                      //  create and return a new timeline entry
+                      this.timelineCount ++;
+                      return this.timelines[name] = new Timeline(name,start,end,speed,loop,callback,this);
                     },
     
     load: function( name ){
