@@ -200,7 +200,7 @@
                     }
                   },
     timeline    : function(name,start,end,speed,loop){ return this.parent.parent.timeline.apply(this.parent.parent,[name,start,end,speed,loop,this.parent]); }, 
-    shape       : function(name,objectRef){ return this.parent.shape.apply(this.parent,[name,objectRef,this.parent]); },
+    shape       : function(name,objectRef){ return this.parent.shape.apply(this.parent,[name,objectRef,this.parent]); }
   };
 
   // TRACK //
