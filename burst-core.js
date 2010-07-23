@@ -1,3 +1,4 @@
+
 /*
  
   BURST-CORE - by f1lt3r @ bocoup
@@ -116,7 +117,7 @@
   };  
   
   // TIMELINE //
-  Timeline = function(name,start,end,speed,loop,callback,parent){
+  var Timeline = function(name,start,end,speed,loop,callback,parent){
     this.name   = name;
     this.start  = start;
     this.end    = end;
@@ -175,7 +176,7 @@
   };  
   
   // SHAPE //
-  Shape = function(name,objectRef,parent){
+  var Shape = function(name,objectRef,parent){
     this.name       = name;
     this.objectRef  = objectRef;
     this.parent     = parent;
@@ -198,7 +199,7 @@
   };
 
   // TRACK //
-  Track = function(name,parent){
+  var Track = function(name,parent){
     this.name   = name;
     this.parent = parent;
     return this;
@@ -207,13 +208,14 @@
   Track.prototype = {
     keys        : [],
     key         : function(frame,value,easing){
-                    thisKey = this.keys[this.keys.length] = new Key(frame,value,easing,this);
-                    var keyIndex=[];
+                    var thisKey   = this.keys[this.keys.length] = new Key(frame,value,easing,this), 
+                        keyIndex  = [], keyStack=[];
+                        
                     for(var i=0;i<this.keys.length;i++){
                       keyIndex[i]=this.keys[i].frame;
                     }
                     keyIndex.sort(sortNumber);
-                    var keyStack=[];
+                    
                     for(var i=0;i<this.keys.length;i++){
                       for(var j=0;j<this.keys.length;j++){
                         if(keyIndex[i]==this.keys[j].frame){
@@ -249,7 +251,7 @@
   };
 
   // KEY //
-  Key = function(frame,value,easing,parent){
+  var Key = function(frame,value,easing,parent){
     this.frame = frame;
     this.value  = value;
     this.easing = easing;
